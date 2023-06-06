@@ -1,0 +1,283 @@
+
+  <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+  <title>Dashboard</title>
+
+  <link rel="shortcut icon" href="/img/1200x630wa-removebg-preview.png">
+
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+
+
+  <link rel="stylesheet" href="assets/plugins/feather/feather.css">
+
+  <link rel="stylesheet" href="assets/plugins/icons/flags/flags.css">
+
+  <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
+
+
+  <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+</head>
+
+<body>
+
+  <div class="main-wrapper">
+
+    <div class="header">
+
+      <div class="header-left">
+        <a href="/dashboard" class="logo">
+
+          <img src="/img/1200x630wa-removebg-preview.png" alt="Logo">
+        </a>
+        <a href="/dashboard" class="logo logo-small">
+          <img src="/img/1200x630wa-removebg-preview.png" alt="Logo" width="30" height="30">
+        </a>
+      </div>
+      <div class="menu-toggle">
+        <a href="javascript:void(0);" id="toggle_btn">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+
+
+      <a class="mobile_btn" id="mobile_btn">
+        <i class="fas fa-bars"></i>
+      </a>
+
+      <ul class="nav user-menu">
+
+
+
+        <li class="nav-item dropdown has-arrow new-user-menus">
+          <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+            <span class="user-img">
+              <img class="rounded-circle" src="img/k.jpeg" width="31" alt="adminprofile">
+              <div class="user-text">
+                <h6>
+                  Karma Choda
+                </h6>
+                <p class="text-muted mb-0">Human Resources</p>
+              </div>
+            </span>
+          </a>
+          <div class="dropdown-menu">
+            <div class="user-header">
+              <div class="avatar avatar-sm">
+                <img src="img/k.jpeg" alt="User Image" class="avatar-img rounded-circle">
+              </div>
+              <div class="user-text">
+                <h6>
+                 Karma Choda
+                </h6>
+                <p class="text-muted mb-0">Human Resources</p>
+              </div>
+            </div>
+            <a class="dropdown-item" href="/logout">Logout</a>
+          </div>
+        </li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-inner slimscroll">
+        <div id="sidebar-menu" class="sidebar-menu">
+          <ul>
+            <li class="menu-title">
+              <span>Main Menu</span>
+            </li>
+            <li>
+              <a href="/dashboard"><i class="feather-grid"></i> <span> Dashboard</span></a>
+
+            </li>
+            <li class="submenu active">
+              <a href="#"><i class="fas fa-user"></i> <span> User</span> <span class="menu-arrow"></span></a>
+              <ul>
+                <li><a href="/add-employee">Add Employee</a></li>
+
+                <li><a href="/dashboard" class="active">Employe Details</a></li>
+          
+
+              </ul>
+           
+         
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="page-wrapper">
+      <div class="content container-fluid">
+        
+
+        <div class="page-header">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="page-sub-header">
+                <h3 class="page-title">Manage User</h3>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+        <% if (typeof message !== 'undefined') { %>
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= message %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% } %>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card card-table comman-shadow">
+              <div class="card-body">
+
+                <div class="page-header">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <h3 class="page-title">Employee Details</h3>
+                    </div>
+                    <div class="col-lg-2">
+
+                      <div class="search-student-btn">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="student-group-form">
+                 <!-- Search form -->
+          <form action="/dashboard" method="GET">
+            <label for="search">Search by Employee ID:</label>
+            <input type="text" id="search" name="search" value="<%= search || '' %>" />
+            <label for="department">Search by Department:</label>
+            <input type="text" id="department" name="Department" value="<%= Department || '' %>" />
+            <button type="submit">Search</button>
+          </form>
+                  </div>
+                  </form>
+                </div>
+           
+
+                <div class="table-responsive">
+                  <% if (user.length> 0) { %>
+
+                    <table id="datatablesSimple" class="table table-striped table-bordered" style="width: 100%;">
+                      <thead class="student-thread">
+                        <tr>
+                          <th>Name</th>
+                          <th>Employee Id</th>
+                          <th>Department</th>
+                          <th>Gender</th>
+                          <th>Date Of Birth</th>
+                          <th>Designation</th>
+                          <th>Appointment Date</th>
+                          <th>Action</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% if(user.length> 0){
+                          for(let i=0; i<user.length; i++){ %>
+                            <tr>
+                              <td>
+                                <%= user[i].Name %>
+                              </td>
+
+                              <td>
+                                <%= user[i].Employee_id %>
+                              </td>
+                              <td>
+                                <%= user[i].Department %>
+                              </td>
+                              <td>
+                                <%= user[i].Gender %>
+                              </td>
+                              <td>
+                                <% var date = new Date(user[i].DoB);
+                                var day = ("0" + date.getDate()).slice(-2);
+                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                                var year = date.getFullYear().toString().substr(-2);
+                                var formattedDate = day + '/' + month + '/' + year;
+                             %>
+                             
+                             <%= formattedDate %>                                                         
+                              </td>
+                              <td>
+                                  <%= user[i].Designation %>
+                              </td>
+                              
+                              <td>
+                                <% var date = new Date(user[i].Appointment_Date);
+                                var day = ("0" + date.getDate()).slice(-2);
+                                var month = ("0" + (date.getMonth() + 1)).slice(-2);
+                                var year = date.getFullYear().toString().substr(-2);
+                                var formattedDate = day + '/' + month + '/' + year;
+                             %>
+                             
+                             <%= formattedDate %> 
+                          
+                              </td>
+                               <td>
+                                <a href="/employe/<%= user[i].id %>" style="text-decoration: none;"><button class="btn btn-primary mr-5"> Edit</button></a>
+                                <form action="/employee-delete/<%= user[i].id %>" method="post">  <button class="btn btn-danger" type="submit">Delete</button></form>                          
+                              </td>
+                            
+                              <% } } else{ %>
+                            <tr>
+                              <td colspan="5">Users Not Found</td>
+                            </tr>
+                            <% } %>
+                              </tr>
+                      </tbody>
+                    </table>
+                    <% } else { %>
+                      <p>No users found.</p>
+                      <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+
+  <script src="assets/js/jquery-3.6.0.min.js"></script>
+
+  <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script src="assets/js/feather.min.js"></script>
+
+  <script src="assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+
+  <!-- <script src="assets/plugins/datatables/datatables.min.js"></script> -->
+
+  <script src="assets/js/datatables-simple-demo.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+    crossorigin="anonymous"></script>
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>

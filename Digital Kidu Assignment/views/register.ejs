@@ -1,0 +1,18 @@
+<title>Registration Form</title>
+
+<div class="container">
+  <form action="/register" method="post">
+    <h2>Registration Form</h2>
+    <label for="username">Username:</label>
+    <input type="text" name="name" required />
+    <label for="email">Email:</label>
+    <input type="email" name="email" required />
+    <label for="password">Password:</label>
+    <input type="password" name="password" required />
+
+    <input type="submit" value="Register" />
+  </form>
+</div>
+<% if(typeof message !== 'undefined'){ %>
+<p style="color: red"><%= message %></p>
+<% } %>

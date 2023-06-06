@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Search Results</title>
+</head>
+<body>
+  <h1>Search Results</h1>
+  <p>Showing results for: <%= query %></p>
+
+  <ul>
+    <% results.forEach((employee) => { %>
+      <li>
+        <h3><%= employee.Name %></h3>
+        <p>Employee ID: <%= employee.Employee_id %></p>
+        <p>Gender: <%= employee.Gender %></p>
+        <p>Date of Birth: <%= employee.DoB.toDateString() %></p>
+        <p>Designation: <%= employee.Designation %></p>
+        <p>Appointment Date: <%= employee.Appointment_Date.toDateString() %></p>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>
